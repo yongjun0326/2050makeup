@@ -1420,29 +1420,29 @@ function chooseProfile(metrics) {
   // ❶ AERO FLOW MODE
   if (toneBalance < 80) {
     return {
-      mode: "Aero Flow 氣流適應模式",
+      mode: "Aero Flow 氣候適應",
       text: "以微氣候感應為基礎的快速上妝系統，透過粒子自動定位臉部結構，在短時間內建立輕量但精準的色彩分佈。妝感會隨環境光與空氣條件即時微調，維持自然且具有呼吸感的表現。\nA rapid-response makeup system driven by micro-climate detection. Particles automatically map facial contours and adjust color distribution in real time.",
       tags: [
         "環境適應 Adaptive",
         "快速成形 Instant",
         "輕量貼膚 Lightweight"
       ],
-      product: "AERO BIO MIST",
-      note: "適合高流動場景，維持妝容穩定與色彩一致。"
+      product: "AERO BIO MIST / 微氣候感應噴霧",
+      note: "適合高流動環境，維持妝容穩定與色彩一致。"
     };
   }
 
   // ❷ TIDAL LUMIN MODE
   if (hydration > 50) {
     return {
-      mode: "Tidal Lumin 潮汐光澤模式",
+      mode: "Tidal Lumin 潮汐光澤",
       text: "透過生物光敏機制讓妝容從肌膚內部生成光澤，隨環境與溫度變化呈現自然發光狀態。\nA bio-luminescent mode generating glow from within the skin.",
       tags: [
         "動態光澤 Dynamic Glow",
         "深層融合 Deep Fusion",
         "自發光 Bio-Luminous"
       ],
-      product: "TIDAL CELL ELIXIR",
+      product: "TIDAL CELL ELIXIR / 生物動能精華液",
       note: "適合長時間維持高質感妝效。"
     };
   }
@@ -1456,8 +1456,8 @@ function chooseProfile(metrics) {
       "高強持久 Long Duration",
       "結構強化 Structural"
     ],
-    product: "CORE-FLUX CAPSULE",
-    note: "適合高強度與長時間場景。"
+    product: "CORE-FLUX CAPSULE / 內生性顯色膠囊",
+    note: "適合高強度與長時間及多樣不同的場景。"
   };
 }
     function generateResult() {
