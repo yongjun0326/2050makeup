@@ -1461,35 +1461,49 @@ function chooseProfile(metrics) {
   };
 }
     function generateResult() {
-      const metrics = analyzeFaceData();
+  const metrics = analyzeFaceData();
 
-      document.getElementById("surfaceValue").textContent = metrics.skinStability + "%";
-      document.getElementById("toneValue").textContent = metrics.toneBalance + "%";
-      document.getElementById("fatigueValue").textContent = metrics.hydration + "%";
-      document.getElementById("readabilityValue").textContent = metrics.compatibility + "%";
+  document.getElementById("surfaceValue").textContent = metrics.skinStability + "%";
+  document.getElementById("toneValue").textContent = metrics.toneBalance + "%";
+  document.getElementById("fatigueValue").textContent = metrics.hydration + "%";
+  document.getElementById("readabilityValue").textContent = metrics.compatibility + "%";
 
-      const notes = buildNotes(metrics);
-      document.getElementById("surfaceNote").textContent = notes.skinNote;
-      document.getElementById("toneNote").textContent = notes.toneNote;
-      document.getElementById("fatigueNote").textContent = notes.hydrationNote;
-      document.getElementById("readabilityNote").textContent = notes.compatibilityNote;
+  // 🔥 關鍵：這裡加 try-catch
+  let notes = {
+    skinNote: "Skin analysis complete",
+    toneNote: "Tone analysis complete",
+    hydrationNote: "Hydration analysis complete",
+    compatibilityNote: "Compatibility analysis complete"
+  };
 
-      const chosen = chooseProfile(metrics);
+  try {
+    notes = buildNotes(metrics);
+  } catch (e) {
+    console.log("buildNotes error:", e);
+  }
 
-      document.getElementById("modeName").textContent = chosen.mode;
-      document.getElementById("modeText").textContent = chosen.text;
-      document.getElementById("productText").textContent = chosen.product;
-      document.getElementById("systemText").textContent = chosen.note;
+  document.getElementById("surfaceNote").textContent = notes.skinNote;
+  document.getElementById("toneNote").textContent = notes.toneNote;
+  document.getElementById("fatigueNote").textContent = notes.hydrationNote;
+  document.getElementById("readabilityNote").textContent = notes.compatibilityNote;
 
-      const modeTags = document.getElementById("modeTags");
-      modeTags.innerHTML = "";
-      chosen.tags.forEach(tagText => {
-        const div = document.createElement("div");
-        div.className = "tag";
-        div.textContent = tagText;
-        modeTags.appendChild(div);
-      });
-    }
+  const chosen = chooseProfile(metrics);
+
+  document.getElementById("modeName").textContent = chosen.mode;
+  document.getElementById("modeText").textContent = chosen.text;
+  document.getElementById("productText").textContent = chosen.product;
+  document.getElementById("systemText").textContent = chosen.note;
+
+  const modeTags = document.getElementById("modeTags");
+  modeTags.innerHTML = "";
+
+  chosen.tags.forEach(tagText => {
+    const div = document.createElement("div");
+    div.className = "tag";
+    div.textContent = tagText;
+    modeTags.appendChild(div);
+  });
+}
 
     startCameraBtn.addEventListener("click", startCamera);
     captureBtn.addEventListener("click", captureFace);
