@@ -1414,8 +1414,7 @@
       };
     }
 
-   <script>
- function chooseProfile(metrics) {
+function chooseProfile(metrics) {
   const { hydration, toneBalance } = metrics;
 
   // ❶ AERO FLOW MODE
@@ -1461,62 +1460,48 @@
     note: "適合高強度與長時間場景。"
   };
 }
-  function generateResult() {
-    console.log("generateResult started");
+    function generateResult() {
+      const metrics = analyzeFaceData();
 
-    const metrics = analyzeFaceData();
-    console.log("metrics:", metrics);
+      document.getElementById("surfaceValue").textContent = metrics.skinStability + "%";
+      document.getElementById("toneValue").textContent = metrics.toneBalance + "%";
+      document.getElementById("fatigueValue").textContent = metrics.hydration + "%";
+      document.getElementById("readabilityValue").textContent = metrics.compatibility + "%";
 
-    document.getElementById("surfaceValue").textContent = metrics.skinStability + "%";
-    document.getElementById("toneValue").textContent = metrics.toneBalance + "%";
-    document.getElementById("fatigueValue").textContent = metrics.hydration + "%";
-    document.getElementById("readabilityValue").textContent = metrics.compatibility + "%";
+      const notes = buildNotes(metrics);
+      document.getElementById("surfaceNote").textContent = notes.skinNote;
+      document.getElementById("toneNote").textContent = notes.toneNote;
+      document.getElementById("fatigueNote").textContent = notes.hydrationNote;
+      document.getElementById("readabilityNote").textContent = notes.compatibilityNote;
 
-    const notes = buildNotes(metrics);
-    console.log("notes:", notes);
+      const chosen = chooseProfile(metrics);
 
-    document.getElementById("surfaceNote").textContent = notes.skinNote;
-    document.getElementById("toneNote").textContent = notes.toneNote;
-    document.getElementById("fatigueNote").textContent = notes.hydrationNote;
-    document.getElementById("readabilityNote").textContent = notes.compatibilityNote;
+      document.getElementById("modeName").textContent = chosen.mode;
+      document.getElementById("modeText").textContent = chosen.text;
+      document.getElementById("productText").textContent = chosen.product;
+      document.getElementById("systemText").textContent = chosen.note;
 
-    const chosen = chooseProfile(metrics);
-    console.log("chosen:", chosen);
+      const modeTags = document.getElementById("modeTags");
+      modeTags.innerHTML = "";
+      chosen.tags.forEach(tagText => {
+        const div = document.createElement("div");
+        div.className = "tag";
+        div.textContent = tagText;
+        modeTags.appendChild(div);
+      });
+    }
 
-    document.getElementById("modeName").textContent = chosen.mode;
-    document.getElementById("modeText").textContent = chosen.text;
-    document.getElementById("productText").textContent = chosen.product;
-    document.getElementById("systemText").textContent = chosen.note;
+    startCameraBtn.addEventListener("click", startCamera);
+    captureBtn.addEventListener("click", captureFace);
+    rescanBtn.addEventListener("click", returnToScan);
+    retryBtn.addEventListener("click", returnToScan);
 
-    const modeTags = document.getElementById("modeTags");
-    modeTags.innerHTML = "";
-
-    chosen.tags.forEach(tagText => {
-      const div = document.createElement("div");
-      div.className = "tag";
-      div.textContent = tagText;
-      modeTags.appendChild(div);
+    window.addEventListener("load", async () => {
+      resetCapturedView();
+      await startCamera();
     });
 
-    console.log("generateResult finished");
-  }
-
-  startCameraBtn.addEventListener("click", startCamera);
-  captureBtn.addEventListener("click", captureFace);
-  rescanBtn.addEventListener("click", returnToScan);
-  retryBtn.addEventListener("click", returnToScan);
-
-  window.addEventListener("load", async () => {
-    resetCapturedView();
-    await startCamera();
-  });
-
-  window.addEventListener("beforeunload", () => {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
-    }
-  });
-</script>
+    window.addEventListener("beforeunload", () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
