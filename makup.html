@@ -1415,90 +1415,51 @@
     }
 
     function chooseProfile(metrics) {
-      const { hydration, toneBalance, compatibility, warmth, brightnessNorm, contrastNorm } = metrics;
+  const { hydration, toneBalance, compatibility } = metrics;
 
-      if (hydration >= 55) {
-        return {
-          mode: "Hydra Veil 水潤薄膜",
-          text: "適合提升保濕光澤與整體服貼度，妝效偏輕透柔和。 Best suited for improving hydration glow and a smooth adhesive finish.",
-          tags: ["水潤 Hydrated", "輕透 Sheer", "柔光 Soft Glow"],
-          product: "NEO HUE Essence Mist / 水潤修飾 Hydrating correction / 輕盈貼膚 Lightweight veil",
-          note: "建議優先補足肌膚含水感，再進行妝面疊加。 Improve hydration first for a more even makeup finish."
-        };
-      }
+  // ❶ AERO FLOW MODE（自然 / 校正）
+  if (toneBalance < 80) {
+    return {
+      mode: "Aero Flow 氣流適應模式",
+      text: "以微氣候感應為基礎的快速上妝系統，透過粒子自動定位臉部結構，在短時間內建立輕量但精準的色彩分佈。妝感會隨環境光與空氣條件即時微調，維持自然且具有呼吸感的表現。\nA rapid-response makeup system driven by micro-climate detection. Particles automatically map facial contours and adjust color distribution in real time, maintaining a breathable and adaptive appearance.",
+      tags: [
+        "環境適應 Adaptive",
+        "快速成形 Instant",
+        "輕量貼膚 Lightweight"
+      ],
+      product: "AERO BIO MIST",
+      note: "此模式適合高流動場景，建議搭配環境光校對功能，以維持妝容穩定度與色彩一致性。"
+    };
+  }
 
-      if (compatibility >= 90 && brightnessNorm >= 0.58) {
-        return {
-          mode: "Public Glow 公開光感",
-          text: "適合展現明亮、乾淨、友善的妝效表現。 Designed for a bright, clean and approachable makeup finish.",
-          tags: ["明亮 Bright", "乾淨 Clean", "展示 Ready"],
-          product: "NEO HUE Mist Light / 即時提亮 Immediate brightening / 輕薄修飾 Lightweight finish",
-          note: "目前膚況與妝容系統相容性高，適合快速完成清透妝感。 Skin condition is highly compatible with quick lightweight makeup."
-        };
-      }
+  // ❷ TIDAL LUMIN MODE（水光）
+  if (hydration > 50) {
+    return {
+      mode: "Tidal Lumin 潮汐光澤模式",
+      text: "透過生物光敏機制，讓妝容從肌膚內部生成光澤與質感，而非表層覆蓋。光感會隨體溫與外部光線動態變化，使肌膚呈現持續流動的自然發光狀態。\nA bio-luminescent makeup mode that generates glow from within the skin. Light response dynamically shifts with temperature and environment, creating a fluid, living radiance.",
+      tags: [
+        "動態光澤 Dynamic Glow",
+        "深層融合 Deep Fusion",
+        "自發光 Bio-Luminous"
+      ],
+      product: "TIDAL CELL ELIXIR",
+      note: "此模式會根據環境與肌膚狀態持續調整反射率，適合長時間維持穩定且高質感的妝容表現。"
+    };
+  }
 
-      if (toneBalance >= 84 && compatibility >= 84 && contrastNorm >= 0.22) {
-        return {
-          mode: "Clear Professional 清晰專業",
-          text: "適合均勻修飾膚色、提升輪廓乾淨度與妝容整體秩序感。 Optimized for even tone correction and a structured polished finish.",
-          tags: ["均勻 Even", "清晰 Clear", "俐落 Structured"],
-          product: "NEO HUE Mist Pro / 精準修飾 Precision correction / 穩定妝效 Balanced finish",
-          note: "此肌膚狀態適合打造高完成度且整潔的妝面。 This skin profile supports a more refined and controlled makeup look."
-        };
-      }
-
-      if (warmth > 8) {
-        return {
-          mode: "Soft Neutral 柔和中性",
-          text: "適合自然修飾膚色，維持輕柔且不過度的妝感。 Balances complexion softly for a natural and understated finish.",
-          tags: ["自然 Natural", "柔和 Soft", "平衡 Balanced"],
-          product: "NEO HUE Capsule / 色調平衡 Tone balancing / 日常妝效 Daily finish",
-          note: "整體膚色狀態適合自然均衡型妝容調整。 Skin tone condition is well suited to natural balancing correction."
-        };
-      }
-
-      return {
-        mode: "Cool Blur 冷霧模式",
-        text: "適合柔化紋理、降低表面顆粒感，呈現乾淨霧面妝效。 Best suited for diffusing texture and creating a clean soft-matte finish.",
-        tags: ["柔霧 Soft Blur", "均勻 Tone Even", "低飽和 Low Saturation"],
-        product: "NEO HUE Mist / 快速修飾膚面 Rapid skin correction / 輕薄服貼 Lightweight finish",
-        note: "目前肌膚狀態適合均勻膚色、柔化紋理並維持乾淨妝感。 Current skin condition is suited for tone evening and soft-surface refinement."
-      };
-    }
-
-    function buildNotes(metrics) {
-      const { brightnessNorm, neutralDistance, hydration, compatibility } = metrics;
-
-      let skinNote = "肌膚狀態整體穩定，適合進行日常妝容疊加。 Skin condition appears stable for everyday makeup layering.";
-      if (brightnessNorm < 0.42) {
-        skinNote = "肌膚表面穩定度略低，建議先柔化紋理再進行上妝。 Surface stability appears slightly lower; smoothing before makeup is recommended.";
-      } else if (brightnessNorm > 0.68) {
-        skinNote = "肌膚狀態穩定，底妝延展與服貼表現預期較佳。 Skin condition appears stable with good expected foundation spread and adhesion.";
-      }
-
-      let toneNote = "膚色分布整體均衡，底妝調整需求較低。 Tone distribution appears balanced with low correction demand.";
-      if (neutralDistance > 24) {
-        toneNote = "膚色局部有些微冷暖差異，建議加強色調修飾。 Minor warm-cool variation is present; added tone correction is recommended.";
-      } else if (neutralDistance < 10) {
-        toneNote = "膚色均衡度高，適合輕薄型底妝與局部修飾。 Tone balance is high and suits lightweight base makeup.";
-      }
-
-      let hydrationNote = "肌膚含水狀態偏低，建議優先補強服貼與光澤表現。 Hydration reads lower, so improving adhesion and glow is recommended.";
-      if (hydration >= 52) {
-        hydrationNote = "肌膚保濕狀態穩定，適合清透或光澤型妝感。 Hydration appears stable and suits sheer or radiant makeup finishes.";
-      } else if (hydration <= 28) {
-        hydrationNote = "肌膚保濕狀態不足，建議避免過度堆疊粉體。 Hydration appears low; heavy powder layering should be avoided.";
-      }
-
-      let compatibilityNote = "目前肌膚與妝容系統具有高相容性，適合快速上妝。 Current skin condition shows high compatibility with makeup application.";
-      if (compatibility < 74) {
-        compatibilityNote = "目前妝容貼合度偏低，建議先改善肌膚基底後再進行完整妝容。 Makeup compatibility is lower; improve base skin condition before full application.";
-      } else if (compatibility > 90) {
-        compatibilityNote = "目前肌膚狀態與妝容貼合度極佳，適合快速完成妝面。 Skin condition shows excellent compatibility for quick makeup application.";
-      }
-
-      return { skinNote, toneNote, hydrationNote, compatibilityNote };
-    }
+  // ❸ CORE FLUX MODE（精緻 / 立體）
+  return {
+    mode: "Core Flux 核心顯色模式",
+    text: "透過內生性顯色機制，從細胞層級改變妝容表現，實現高度精準且持久的結構性妝效。妝容不再附著於表面，而是與身體系統同步運作。\nA high-level bio-integrated mode that alters appearance at a cellular level, producing long-lasting and structurally precise makeup that operates in sync with the body.",
+    tags: [
+      "內生轉換 Internal Shift",
+      "高強持久 Long Duration",
+      "結構強化 Structural"
+    ],
+    product: "CORE-FLUX CAPSULE",
+    note: "此模式將妝容納入生理節律系統，建議搭配生命徵象設定，以獲得最佳動態表現。"
+  };
+}
 
     function generateResult() {
       const metrics = analyzeFaceData();
