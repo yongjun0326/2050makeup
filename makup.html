@@ -23,6 +23,8 @@
       --deep: #08101d;
       --deep-2: #0d1728;
       --shadow: 0 18px 60px rgba(40, 85, 170, 0.18);
+      --topbar-h: 68px;
+      --content-h: calc(100% - var(--topbar-h));
     }
 
     * {
@@ -59,7 +61,7 @@
     .page {
       display: none;
       min-height: 100vh;
-      padding: 28px;
+      padding: 20px;
       align-items: center;
       justify-content: center;
     }
@@ -70,7 +72,7 @@
 
     .frame {
       width: min(1280px, 100%);
-      min-height: 84vh;
+      height: min(88vh, 820px);
       border-radius: 34px;
       overflow: hidden;
       background:
@@ -92,7 +94,7 @@
     }
 
     .topbar {
-      height: 68px;
+      height: var(--topbar-h);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -131,23 +133,31 @@
       color: rgba(238, 246, 255, 0.58);
     }
 
+    .layout,
+    .loading-grid,
+    .result-grid {
+      height: var(--content-h);
+    }
+
     .layout {
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      min-height: calc(84vh - 68px);
+      grid-template-columns: 1fr 1fr;
     }
 
     .left-panel,
     .right-panel {
-      padding: 28px;
+      padding: 24px;
+      height: 100%;
+      min-height: 0;
     }
 
     .left-panel {
       border-right: 1px solid rgba(255,255,255,0.06);
       display: flex;
       flex-direction: column;
+      min-height: 0;
     }
 
     .eyebrow {
@@ -161,7 +171,7 @@
       color: var(--muted);
       font-size: 12px;
       letter-spacing: 0.08em;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       width: fit-content;
     }
 
@@ -171,11 +181,11 @@
 
     .title {
       font-family: "Michroma", "Sora", sans-serif;
-      font-size: clamp(52px, 7vw, 92px);
+      font-size: clamp(44px, 5.8vw, 88px);
       line-height: 0.98;
       letter-spacing: -0.03em;
       font-weight: 400;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       max-width: 760px;
       color: #f8fbff;
       text-shadow: 0 0 28px rgba(140, 230, 255, 0.08);
@@ -184,16 +194,16 @@
     .desc {
       max-width: 640px;
       color: var(--muted);
-      font-size: 18px;
-      line-height: 1.85;
-      margin-bottom: 28px;
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 22px;
     }
 
     .badge-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 30px;
+      margin-bottom: 22px;
     }
 
     .badge {
@@ -211,15 +221,15 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 22px;
-      padding: 18px;
+      padding: 16px;
       backdrop-filter: blur(18px);
-      margin-top: 8px;
+      margin-top: 4px;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
     }
 
     .control-stack {
       display: grid;
-      gap: 14px;
+      gap: 12px;
       margin-top: 0;
     }
 
@@ -228,7 +238,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 13px 14px;
+      padding: 12px 14px;
       border-radius: 14px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.06);
@@ -246,7 +256,7 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 26px;
+      margin-top: 22px;
       align-items: center;
     }
 
@@ -260,11 +270,11 @@
 
     .btn-primary {
       position: relative;
-      min-width: 260px;
-      min-height: 74px;
+      min-width: 250px;
+      min-height: 70px;
       padding: 0 34px;
       color: #f7fbff;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       letter-spacing: 0.12em;
       background:
@@ -329,20 +339,20 @@
 
     .manual-wrap {
       margin-top: auto;
-      padding-top: 20px;
+      padding-top: 18px;
       display: flex;
       justify-content: flex-start;
     }
 
     .small-note {
-      margin-top: 14px;
+      margin-top: 12px;
       font-size: 12px;
       line-height: 1.7;
       color: rgba(238, 246, 255, 0.52);
     }
 
     .error-box {
-      margin-top: 18px;
+      margin-top: 16px;
       padding: 14px 16px;
       border-radius: 16px;
       background: rgba(255,255,255,0.06);
@@ -356,8 +366,7 @@
     .scan-stage {
       position: relative;
       width: 100%;
-      aspect-ratio: 4 / 5;
-      max-height: 70vh;
+      height: 100%;
       border-radius: 28px;
       overflow: hidden;
       background:
@@ -504,39 +513,47 @@
       margin-bottom: 4px;
     }
 
-    .loading-wrap, .result-wrap, .fail-wrap {
+    .loading-wrap,
+    .result-wrap,
+    .fail-wrap {
       width: 100%;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 42px;
+      height: var(--content-h);
+      padding: 24px;
       position: relative;
       z-index: 2;
     }
 
-    .loading-box, .result-box, .fail-box {
+    .loading-box,
+    .result-box,
+    .fail-box {
       border-radius: 30px;
       border: 1px solid rgba(255,255,255,0.08);
       background:
         linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
       backdrop-filter: blur(20px);
-      padding: 30px;
+      padding: 24px;
       overflow: hidden;
       position: relative;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+      height: 100%;
     }
 
-    .loading-grid, .result-grid {
+    .loading-grid,
+    .result-grid {
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 26px;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
       align-items: stretch;
+      height: 100%;
     }
 
-    .loading-visual, .result-visual {
+    .loading-visual,
+    .result-visual {
       border-radius: 24px;
-      min-height: 430px;
+      height: 100%;
+      min-height: 0;
       position: relative;
       overflow: hidden;
       background:
@@ -544,7 +561,8 @@
       border: 1px solid rgba(255,255,255,0.06);
     }
 
-    .loading-visual img, .result-visual img {
+    .loading-visual img,
+    .result-visual img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -578,19 +596,20 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 22px;
-      min-height: 430px;
+      gap: 18px;
+      min-height: 0;
+      height: 100%;
     }
 
     .loading-title, .result-title, .fail-title {
-      font-size: clamp(28px, 3vw, 46px);
-      line-height: 1.06;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1.08;
       letter-spacing: -0.04em;
       max-width: 720px;
     }
 
     .loading-text, .result-desc, .fail-desc {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.8;
       color: var(--muted);
     }
@@ -618,19 +637,35 @@
       color: rgba(238,246,255,0.62);
     }
 
+    .result-info {
+      height: 100%;
+      min-height: 0;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .result-info::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .result-info::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.18);
+      border-radius: 999px;
+    }
+
     .data-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 24px 0;
+      gap: 12px;
+      margin: 20px 0;
     }
 
     .data-card {
       border-radius: 18px;
-      padding: 18px;
+      padding: 16px;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.07);
-      min-height: 112px;
+      min-height: 108px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -644,10 +679,11 @@
     }
 
     .data-value {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 700;
       letter-spacing: -0.04em;
       color: #ffffff;
+      margin: 6px 0;
     }
 
     .data-note {
@@ -658,11 +694,11 @@
 
     .mode-card {
       border-radius: 22px;
-      padding: 22px;
+      padding: 20px;
       background:
         linear-gradient(135deg, rgba(91,136,255,0.16), rgba(156,236,255,0.05));
       border: 1px solid rgba(156,236,255,0.16);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .mode-top {
@@ -675,7 +711,7 @@
     }
 
     .mode-name {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       letter-spacing: -0.04em;
       color: #fff;
@@ -693,7 +729,7 @@
 
     .mode-text {
       color: var(--muted);
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.8;
     }
 
@@ -701,1500 +737,11 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 16px;
-    }
-
-    .tag {
-      padding: 10px 13px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: #eaf6ff;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      letter-spacing: 0.03em;
-    }
-
-    .sub-panels {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .sub-card {
-      border-radius: 18px;
-      padding: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .sub-card h3 {
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      color: rgba(220, 234, 255, 0.64);
-      margin-bottom: 10px;
-    }
-
-    .sub-card p {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #edf5ff;
-    }
-
-    .footer-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    @media (max-width: 1024px) {
-      .layout,
-      .loading-grid,
-      .result-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .left-panel {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-
-      .data-grid,
-      .sub-panels {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        padding: 14px;
-      }
-
-      .left-panel,
-      .right-panel,
-      .loading-wrap,
-      .result-wrap,
-      .fail-wrap {
-        padding: 18px;
-      }
-
-      .topbar {
-        padding: 0 16px;
-      }
-
-      .btn-primary {
-        min-width: 220px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <section class="page active" id="scanPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">Skin Analysis Interface</div>
-      </div>
-
-      <div class="layout">
-        <div class="left-panel">
-          <div class="eyebrow">Skin Analysis</div>
-          <h1 class="title">NEO HUE</h1>
-          <p class="desc">Construct a clean and confident identity.</p>
-
-          <div class="badge-row">
-            <div class="badge">Skin Scan</div>
-            <div class="badge">Makeup Analysis</div>
-            <div class="badge">Adaptive Profile</div>
-          </div>
-
-          <div class="panel-card">
-            <div class="control-stack">
-              <div class="stat-mini">
-                <span>Capture Mode</span>
-                <strong>Live Camera</strong>
-              </div>
-              <div class="stat-mini">
-                <span>Scan Target</span>
-                <strong>Skin / Tone / Makeup</strong>
-              </div>
-              <div class="stat-mini">
-                <span>Output</span>
-                <strong>Makeup Recommendation</strong>
-              </div>
-            </div>
-
-            <div class="action-row">
-              <button class="btn-primary" id="captureBtn">Scan Face</button>
-            </div>
-
-            <div class="small-note">
-              Use a phone or laptop browser for the best result.<br />
-              If the camera cannot be accessed, open this page through localhost or HTTPS.
-            </div>
-
-            <div class="error-box" id="errorBox"></div>
-          </div>
-
-          <div class="manual-wrap">
-            <button class="btn-secondary" id="startCameraBtn">Manual Camera Start</button>
-          </div>
-        </div>
-
-        <div class="right-panel">
-          <div class="scan-stage">
-            <video id="video" autoplay playsinline muted></video>
-            <canvas id="canvas" style="display:none;"></canvas>
-            <img id="capturedImage" class="captured-image" alt="captured face" />
-
-            <div class="scan-overlay">
-              <div class="face-guide"></div>
-              <div class="scan-line"></div>
-            </div>
-
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
-
-            <div class="scan-status">
-              <strong>Live Scan Ready</strong>
-              Align your face inside the guide frame.<br />
-              The system will analyze skin condition and generate a makeup profile.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="loadingPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">分析進行中 Analysis in Progress</div>
-      </div>
-
-      <div class="loading-wrap">
-        <div class="loading-box">
-          <div class="loading-grid">
-            <div class="loading-visual">
-              <img id="loadingImage" alt="loading preview" />
-              <div class="mesh"></div>
-              <div class="mesh-line"></div>
-            </div>
-
-            <div class="loading-content">
-              <div class="eyebrow">掃描中 Scanning / 分析中 Analyzing</div>
-              <h2 class="loading-title">
-                系統正在分析你的膚況與妝容適配度<br />
-                Analyzing your skin condition and makeup compatibility
-              </h2>
-              <p class="loading-text" id="loadingText">
-                正在初始化臉部掃描... Initializing face scan...
-              </p>
-
-              <div class="progress-wrap">
-                <div class="progress-bar" id="progressBar"></div>
-              </div>
-              <div class="progress-num" id="progressNum">0%</div>
-
-              <div class="panel-card" style="margin-top: 8px;">
-                <div class="control-stack">
-                  <div class="stat-mini">
-                    <span>目前流程 Current Process</span>
-                    <strong id="loadingProcess">肌膚穩定度分析 Skin Stability Analysis</strong>
-                  </div>
-                  <div class="stat-mini">
-                    <span>系統判讀 System Interpretation</span>
-                    <strong>肌膚與妝容適配資料<br>Skin and Makeup Profile</strong>
-                  </div>
-                  <div class="stat-mini">
-                    <span>預計輸出 Estimated Result</span>
-                    <strong>妝容建議 Makeup Recommendation</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="failPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">Scan Failed</div>
-      </div>
-
-      <div class="fail-wrap">
-        <div class="fail-box">
-          <h2 class="fail-title">掃描失敗<br>No face detected</h2>
-          <p class="fail-desc" style="margin-top:16px;">
-            請重新對準鏡頭，讓臉部位於中央掃描框內，並保持畫面明亮。<br />
-            Please align your face inside the frame and make sure the scene is well lit.
-          </p>
-          <div class="footer-actions">
-            <button class="btn-primary" id="retryBtn">Scan Again</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="resultPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">分析完成 Analysis Complete</div>
-      </div>
-
-      <div class="result-wrap">
-        <div class="result-box">
-          <div class="result-grid">
-            <div class="result-visual">
-              <img id="resultImage" alt="result face" />
-            </div>
-
-            <div>
-              <div class="eyebrow">Analysis Complete</div>
-              <h2 class="result-title">
-                你的肌膚分析已完成<br />
-                Your skin analysis is complete
-              </h2>
-              <p class="result-desc" style="margin-top:12px;">
-                系統已根據目前膚況、膚色狀態與妝容適配性生成分析結果。<br />
-                The system has generated results based on skin condition, tone status and makeup compatibility.
-              </p>
-
-              <div class="data-grid">
-                <div class="data-card">
-                  <div class="data-label">肌膚穩定度 Skin Stability</div>
-                  <div class="data-value" id="surfaceValue">84%</div>
-                  <div class="data-note" id="surfaceNote">肌膚狀態整體穩定，適合進行日常妝容疊加。 Skin condition appears stable for everyday makeup layering.</div>
-                </div>
-
-                <div class="data-card">
-                  <div class="data-label">膚色均衡度 Tone Balance</div>
-                  <div class="data-value" id="toneValue">78%</div>
-                  <div class="data-note" id="toneNote">膚色分布整體均衡，底妝調整需求較低。 Tone distribution appears balanced with low correction demand.</div>
-                </div>
-
-                <div class="data-card">
-                  <div class="data-label">保濕狀態 Hydration Level</div>
-                  <div class="data-value" id="fatigueValue">31%</div>
-                  <div class="data-note" id="fatigueNote">肌膚含水狀態偏低，建議優先補強服貼與光澤表現。 Hydration reads lower, so improving adhesion and glow is recommended.</div>
-                </div>
-
-                <div class="data-card">
-                  <div class="data-label">妝容貼合度 Makeup Compatibility</div>
-                  <div class="data-value" id="readabilityValue">91%</div>
-                  <div class="data-note" id="readabilityNote">目前肌膚與妝容系統具有高相容性，適合快速上妝。 Current skin condition shows high compatibility with makeup application.</div>
-                </div>
-              </div>
-
-              <div class="mode-card">
-                <div class="mode-top">
-                  <div class="mode-name" id="modeName">Cool Blur 冷霧模式</div>
-                  <div class="mode-badge">妝容建議 Makeup Recommendation</div>
-                </div>
-                <div class="mode-text" id="modeText">
-                  適合柔化紋理、降低表面顆粒感，呈現乾淨霧面妝效。<br />
-                  Best suited for diffusing texture and creating a clean soft-matte finish.
-                </div>
-
-                <div class="tags" id="modeTags">
-                  <div class="tag">柔霧 Soft Blur</div>
-                  <div class="tag">均勻 Tone Even</div>
-                  <div class="tag">低飽和 Low Saturation</div>
-                </div>
-              </div>
-
-              <div class="sub-panels">
-                <div class="sub-card">
-                  <h3>建議產品 Suggested Product</h3>
-                  <p id="productText">NEO HUE Mist / 快速修飾膚面 Rapid skin correction / 輕薄服貼 Lightweight finish</p>
-                </div>
-
-                <div class="sub-card">
-                  <h3>系統備註 System Note</h3>
-                  <p id="systemText">目前肌膚狀態適合均勻膚色、柔化紋理並維持乾淨妝感。 Current skin condition is suited for tone evening and soft-surface refinement.</p>
-                </div>
-              </div>
-
-              <div class="footer-actions">
-                <button class="btn-primary" id="rescanBtn">Scan Again</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    const scanPage = document.getElementById("scanPage");
-    const loadingPage = document.getElementById("loadingPage");
-    const resultPage = document.getElementById("resultPage");
-    const failPage = document.getElementById("failPage");
-
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const capturedImage = document.getElementById("capturedImage");
-    const loadingImage = document.getElementById("loadingImage");
-    const resultImage = document.getElementById("resultImage");
-
-    const startCameraBtn = document.getElementById("startCameraBtn");
-    const captureBtn = document.getElementById("captureBtn");
-    const rescanBtn = document.getElementById("rescanBtn");
-    const retryBtn = document.getElementById("retryBtn");
-    const errorBox = document.getElementById("errorBox");
-
-    const loadingText = document.getElementById("loadingText");
-    const loadingProcess = document.getElementById("loadingProcess");
-    const progressBar = document.getElementById("progressBar");
-    const progressNum = document.getElementById("progressNum");
-
-    let stream = null;
-    let capturedDataURL = "";
-
-    function showPage(page) {
-      [scanPage, loadingPage, resultPage, failPage].forEach(p => p.classList.remove("active"));
-      page.classList.add("active");
-    }
-
-    function showError(message) {
-      errorBox.style.display = "block";
-      errorBox.textContent = message;
-    }
-
-    function hideError() {
-      errorBox.style.display = "none";
-      errorBox.textContent = "";
-    }
-
-    function resetCapturedView() {
-      capturedDataURL = "";
-      capturedImage.src = "";
-      capturedImage.style.display = "none";
-      loadingImage.src = "";
-      resultImage.src = "";
-      video.style.display = "block";
-    }
-
-    async function startCamera() {
-      hideError();
-
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        showError("This browser does not support camera access.");
-        return;
-      }
-
-      try {
-        if (stream) {
-          const activeVideoTrack = stream.getVideoTracks()[0];
-          if (activeVideoTrack && activeVideoTrack.readyState === "live") {
-            video.srcObject = stream;
-            await video.play();
-            return;
-          }
-          stream.getTracks().forEach(track => track.stop());
-        }
-
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user",
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-          },
-          audio: false
-        });
-
-        video.srcObject = stream;
-        await video.play();
-      } catch (error) {
-        showError("Camera failed to start. Please check permissions or use HTTPS / localhost.");
-        console.error(error);
-      }
-    }
-
-    async function returnToScan() {
-      resetCapturedView();
-      showPage(scanPage);
-      await startCamera();
-    }
-
-    async function detectFaceFromCanvas() {
-      if (!("FaceDetector" in window)) {
-        return true;
-      }
-
-      try {
-        const detector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 });
-        const faces = await detector.detect(canvas);
-        return faces.length > 0;
-      } catch (e) {
-        console.warn("Face detection failed, fallback to continue.", e);
-        return true;
-      }
-    }
-
-    async function captureFace() {
-      if (!video.srcObject) {
-        showError("Please start the camera first.");
-        return;
-      }
-
-      const width = video.videoWidth;
-      const height = video.videoHeight;
-
-      if (!width || !height) {
-        showError("Camera feed is not ready yet.");
-        return;
-      }
-
-      canvas.width = width;
-      canvas.height = height;
-
-      const ctx = canvas.getContext("2d");
-      ctx.save();
-      ctx.translate(width, 0);
-      ctx.scale(-1, 1);
-      ctx.drawImage(video, 0, 0, width, height);
-      ctx.restore();
-
-      const hasFace = await detectFaceFromCanvas();
-      if (!hasFace) {
-        showPage(failPage);
-        return;
-      }
-
-      capturedDataURL = canvas.toDataURL("image/png");
-      capturedImage.src = capturedDataURL;
-      capturedImage.style.display = "block";
-      video.style.display = "none";
-
-      loadingImage.src = capturedDataURL;
-      resultImage.src = capturedDataURL;
-
-      runAnalysis();
-    }
-
-    function runAnalysis() {
-      showPage(loadingPage);
-
-      const steps = [
-        {
-          text: "正在初始化臉部掃描... Initializing face scan...",
-          process: "肌膚穩定度分析 Skin Stability Analysis"
-        },
-        {
-          text: "正在讀取肌膚狀態... Reading skin condition...",
-          process: "肌膚狀態分析 Skin Condition Analysis"
-        },
-        {
-          text: "正在偵測膚色均衡與色調表現... Detecting tone balance and complexion status...",
-          process: "膚色均衡分析 Tone Balance Analysis"
-        },
-        {
-          text: "正在估算保濕與服貼狀態... Estimating hydration and adhesion condition...",
-          process: "保濕狀態估算 Hydration Estimate"
-        },
-        {
-          text: "正在比對妝容貼合度... Matching makeup compatibility...",
-          process: "妝容貼合分析 Makeup Compatibility Analysis"
-        },
-        {
-          text: "正在生成分析結果... Generating analysis result...",
-          process: "妝容建議生成 Makeup Recommendation Render"
-        }
-      ];
-
-      let progress = 0;
-      let stepIndex = 0;
-
-      loadingText.textContent = steps[0].text;
-      loadingProcess.textContent = steps[0].process;
-      progressBar.style.width = "0%";
-      progressNum.textContent = "0%";
-
-      const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 4) + 2;
-        if (progress > 100) progress = 100;
-
-        progressBar.style.width = progress + "%";
-        progressNum.textContent = progress + "%";
-
-        const mappedIndex = Math.min(
-          Math.floor((progress / 100) * steps.length),
-          steps.length - 1
-        );
-
-        if (mappedIndex !== stepIndex) {
-          stepIndex = mappedIndex;
-          loadingText.textContent = steps[stepIndex].text;
-          loadingProcess.textContent = steps[stepIndex].process;
-        }
-
-        if (progress >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            generateResult();
-            showPage(resultPage);
-          }, 420);
-        }
-      }, 140);
-    }
-
-    function clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-    }
-
-    function averageRGBToBrightness(r, g, b) {
-      return 0.299 * r + 0.587 * g + 0.114 * b;
-    }
-
-    function analyzeFaceData() {
-      const width = canvas.width;
-      const height = canvas.height;
-      const ctx = canvas.getContext("2d");
-      const imageData = ctx.getImageData(0, 0, width, height).data;
-
-      const startX = Math.floor(width * 0.22);
-      const endX = Math.floor(width * 0.78);
-      const startY = Math.floor(height * 0.18);
-      const endY = Math.floor(height * 0.82);
-
-      let totalR = 0;
-      let totalG = 0;
-      let totalB = 0;
-      let totalBrightness = 0;
-      let totalContrastBase = 0;
-      let count = 0;
-
-      for (let y = startY; y < endY; y += 3) {
-        for (let x = startX; x < endX; x += 3) {
-          const index = (y * width + x) * 4;
-          const r = imageData[index];
-          const g = imageData[index + 1];
-          const b = imageData[index + 2];
-
-          const brightness = averageRGBToBrightness(r, g, b);
-
-          totalR += r;
-          totalG += g;
-          totalB += b;
-          totalBrightness += brightness;
-          count++;
-        }
-      }
-
-      const avgR = totalR / count;
-      const avgG = totalG / count;
-      const avgB = totalB / count;
-      const avgBrightness = totalBrightness / count;
-
-      for (let y = startY; y < endY; y += 6) {
-        for (let x = startX; x < endX; x += 6) {
-          const index = (y * width + x) * 4;
-          const r = imageData[index];
-          const g = imageData[index + 1];
-          const b = imageData[index + 2];
-          const brightness = averageRGBToBrightness(r, g, b);
-          totalContrastBase += Math.abs(brightness - avgBrightness);
-        }
-      }
-
-      const sampledContrast = totalContrastBase / Math.ceil(((endY - startY) / 6) * ((endX - startX) / 6));
-
-      const brightnessNorm = avgBrightness / 255;
-      const warmth = avgR - avgB;
-      const neutralDistance = Math.abs(avgR - avgB);
-      const contrastNorm = clamp(sampledContrast / 64, 0, 1);
-
-      let skinStability = Math.round(60 + brightnessNorm * 24 + contrastNorm * 10);
-      let toneBalance = Math.round(90 - neutralDistance * 0.34 + brightnessNorm * 4);
-      let hydration = Math.round(72 - brightnessNorm * 34 + (1 - contrastNorm) * 12);
-      let compatibility = Math.round(skinStability * 0.34 + toneBalance * 0.38 + (100 - hydration) * 0.10 + contrastNorm * 16);
-
-      skinStability = clamp(skinStability, 64, 96);
-      toneBalance = clamp(toneBalance, 60, 95);
-      hydration = clamp(hydration, 18, 78);
-      compatibility = clamp(compatibility, 68, 97);
-
-      return {
-        avgR,
-        avgG,
-        avgB,
-        avgBrightness,
-        brightnessNorm,
-        warmth,
-        neutralDistance,
-        contrastNorm,
-        skinStability,
-        toneBalance,
-        hydration,
-        compatibility
-      };
-    }
-
-    function chooseProfile(metrics) {
-      const { hydration, toneBalance, compatibility, warmth, brightnessNorm, contrastNorm } = metrics;
-
-      if (hydration >= 55) {
-        return {
-          mode: "Hydra Veil 水潤薄膜",
-          text: "適合提升保濕光澤與整體服貼度，妝效偏輕透柔和。 Best suited for improving hydration glow and a smooth adhesive finish.",
-          tags: ["水潤 Hydrated", "輕透 Sheer", "柔光 Soft Glow"],
-          product: "NEO HUE Essence Mist / 水潤修飾 Hydrating correction / 輕盈貼膚 Lightweight veil",
-          note: "建議優先補足肌膚含水感，再進行妝面疊加。 Improve hydration first for a more even makeup finish."
-        };
-      }
-
-      if (compatibility >= 90 && brightnessNorm >= 0.58) {
-        return {
-          mode: "Public Glow 公開光感",
-          text: "適合展現明亮、乾淨、友善的妝效表現。 Designed for a bright, clean and approachable makeup finish.",
-          tags: ["明亮 Bright", "乾淨 Clean", "展示 Ready"],
-          product: "NEO HUE Mist Light / 即時提亮 Immediate brightening / 輕薄修飾 Lightweight finish",
-          note: "目前膚況與妝容系統相容性高，適合快速完成清透妝感。 Skin condition is highly compatible with quick lightweight makeup."
-        };
-      }
-
-      if (toneBalance >= 84 && compatibility >= 84 && contrastNorm >= 0.22) {
-        return {
-          mode: "Clear Professional 清晰專業",
-          text: "適合均勻修飾膚色、提升輪廓乾淨度與妝容整體秩序感。 Optimized for even tone correction and a structured polished finish.",
-          tags: ["均勻 Even", "清晰 Clear", "俐落 Structured"],
-          product: "NEO HUE Mist Pro / 精準修飾 Precision correction / 穩定妝效 Balanced finish",
-          note: "此肌膚狀態適合打造高完成度且整潔的妝面。 This skin profile supports a more refined and controlled makeup look."
-        };
-      }
-
-      if (warmth > 8) {
-        return {
-          mode: "Soft Neutral 柔和中性",
-          text: "適合自然修飾膚色，維持輕柔且不過度的妝感。 Balances complexion softly for a natural and understated finish.",
-          tags: ["自然 Natural", "柔和 Soft", "平衡 Balanced"],
-          product: "NEO HUE Capsule / 色調平衡 Tone balancing / 日常妝效 Daily finish",
-          note: "整體膚色狀態適合自然均衡型妝容調整。 Skin tone condition is well suited to natural balancing correction."
-        };
-      }
-
-      return {
-        mode: "Cool Blur 冷霧模式",
-        text: "適合柔化紋理、降低表面顆粒感，呈現乾淨霧面妝效。 Best suited for diffusing texture and creating a clean soft-matte finish.",
-        tags: ["柔霧 Soft Blur", "均勻 Tone Even", "低飽和 Low Saturation"],
-        product: "NEO HUE Mist / 快速修飾膚面 Rapid skin correction / 輕薄服貼 Lightweight finish",
-        note: "目前肌膚狀態適合均勻膚色、柔化紋理並維持乾淨妝感。 Current skin condition is suited for tone evening and soft-surface refinement."
-      };
-    }
-
-    function buildNotes(metrics) {
-      const { brightnessNorm, neutralDistance, hydration, compatibility } = metrics;
-
-      let skinNote = "肌膚狀態整體穩定，適合進行日常妝容疊加。 Skin condition appears stable for everyday makeup layering.";
-      if (brightnessNorm < 0.42) {
-        skinNote = "肌膚表面穩定度略低，建議先柔化紋理再進行上妝。 Surface stability appears slightly lower; smoothing before makeup is recommended.";
-      } else if (brightnessNorm > 0.68) {
-        skinNote = "肌膚狀態穩定，底妝延展與服貼表現預期較佳。 Skin condition appears stable with good expected foundation spread and adhesion.";
-      }
-
-      let toneNote = "膚色分布整體均衡，底妝調整需求較低。 Tone distribution appears balanced with low correction demand.";
-      if (neutralDistance > 24) {
-        toneNote = "膚色局部有些微冷暖差異，建議加強色調修飾。 Minor warm-cool variation is present; added tone correction is recommended.";
-      } else if (neutralDistance < 10) {
-        toneNote = "膚色均衡度高，適合輕薄型底妝與局部修飾。 Tone balance is high and suits lightweight base makeup.";
-      }
-
-      let hydrationNote = "肌膚含水狀態偏低，建議優先補強服貼與光澤表現。 Hydration reads lower, so improving adhesion and glow is recommended.";
-      if (hydration >= 52) {
-        hydrationNote = "肌膚保濕狀態穩定，適合清透或光澤型妝感。 Hydration appears stable and suits sheer or radiant makeup finishes.";
-      } else if (hydration <= 28) {
-        hydrationNote = "肌膚保濕狀態不足，建議避免過度堆疊粉體。 Hydration appears low; heavy powder layering should be avoided.";
-      }
-
-      let compatibilityNote = "目前肌膚與妝容系統具有高相容性，適合快速上妝。 Current skin condition shows high compatibility with makeup application.";
-      if (compatibility < 74) {
-        compatibilityNote = "目前妝容貼合度偏低，建議先改善肌膚基底後再進行完整妝容。 Makeup compatibility is lower; improve base skin condition before full application.";
-      } else if (compatibility > 90) {
-        compatibilityNote = "目前肌膚狀態與妝容貼合度極佳，適合快速完成妝面。 Skin condition shows excellent compatibility for quick makeup application.";
-      }
-
-      return { skinNote, toneNote, hydrationNote, compatibilityNote };
-    }
-
-    function generateResult() {
-      const metrics = analyzeFaceData();
-
-      document.getElementById("surfaceValue").textContent = metrics.skinStability + "%";
-      document.getElementById("toneValue").textContent = metrics.toneBalance + "%";
-      document.getElementById("fatigueValue").textContent = metrics.hydration + "%";
-      document.getElementById("readabilityValue").textContent = metrics.compatibility + "%";
-
-      const notes = buildNotes(metrics);
-      document.getElementById("surfaceNote").textContent = notes.skinNote;
-      document.getElementById("toneNote").textContent = notes.toneNote;
-      document.getElementById("fatigueNote").textContent = notes.hydrationNote;
-      document.getElementById("readabilityNote").textContent = notes.compatibilityNote;
-
-      const chosen = chooseProfile(metrics);
-
-      document.getElementById("modeName").textContent = chosen.mode;
-      document.getElementById("modeText").textContent = chosen.text;
-      document.getElementById("productText").textContent = chosen.product;
-      document.getElementById("systemText").textContent = chosen.note;
-
-      const modeTags = document.getElementById("modeTags");
-      modeTags.innerHTML = "";
-      chosen.tags.forEach(tagText => {
-        const div = document.createElement("div");
-        div.className = "tag";
-        div.textContent = tagText;
-        modeTags.appendChild(div);
-      });
-    }
-
-    startCameraBtn.addEventListener("click", startCamera);
-    captureBtn.addEventListener("click", captureFace);
-    rescanBtn.addEventListener("click", returnToScan);
-    retryBtn.addEventListener("click", returnToScan);
-
-    window.addEventListener("load", async () => {
-      resetCapturedView();
-      await startCamera();
-    });
-
-    window.addEventListener("beforeunload", () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-    });
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEO HUE｜Skin Analysis</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Sora:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg-1: #f3f8ff;
-      --bg-2: #dfeeff;
-      --bg-3: #c7dcff;
-      --panel: rgba(255, 255, 255, 0.14);
-      --panel-strong: rgba(255, 255, 255, 0.22);
-      --line: rgba(180, 225, 255, 0.22);
-      --text: #f8fbff;
-      --muted: rgba(232, 242, 255, 0.78);
-      --blue: #5b88ff;
-      --blue-2: #8ab8ff;
-      --cyan: #9cecff;
-      --deep: #08101d;
-      --deep-2: #0d1728;
-      --shadow: 0 18px 60px rgba(40, 85, 170, 0.18);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-      font-family: "Sora", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(156, 236, 255, 0.18), transparent 22%),
-        radial-gradient(circle at 88% 14%, rgba(138, 184, 255, 0.22), transparent 24%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2) 52%, var(--bg-3));
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.3;
-      mix-blend-mode: soft-light;
-    }
-
-    .page {
-      display: none;
-      min-height: 100vh;
-      padding: 28px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .page.active {
-      display: flex;
-    }
-
-    .frame {
-      width: min(1280px, 100%);
-      min-height: 84vh;
-      border-radius: 34px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(10, 18, 34, 0.88), rgba(9, 16, 30, 0.84));
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: var(--shadow);
-      position: relative;
-    }
-
-    .frame::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 18% 18%, rgba(156, 236, 255, 0.10), transparent 18%),
-        radial-gradient(circle at 84% 14%, rgba(91, 136, 255, 0.14), transparent 20%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%);
-    }
-
-    .topbar {
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      z-index: 2;
-      backdrop-filter: blur(14px);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .brand-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #eef7ff, var(--blue));
-      box-shadow: 0 0 16px rgba(138, 184, 255, 0.7);
-    }
-
-    .brand-name {
-      font-size: 13px;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .top-right {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      color: rgba(238, 246, 255, 0.58);
-    }
-
-    .layout {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      min-height: calc(84vh - 68px);
-    }
-
-    .left-panel,
-    .right-panel {
-      padding: 28px;
-    }
-
-    .left-panel {
-      border-right: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      margin-bottom: 18px;
-      width: fit-content;
-    }
-
-    h1, h2, h3, p {
-      margin: 0;
-    }
-
-    .title {
-      font-family: "Michroma", "Sora", sans-serif;
-      font-size: clamp(52px, 7vw, 92px);
-      line-height: 0.98;
-      letter-spacing: -0.03em;
-      font-weight: 400;
-      margin-bottom: 18px;
-      max-width: 760px;
-      color: #f8fbff;
-      text-shadow: 0 0 28px rgba(140, 230, 255, 0.08);
-    }
-
-    .desc {
-      max-width: 640px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.85;
-      margin-bottom: 28px;
-    }
-
-    .badge-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-
-    .badge {
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: #ecf4ff;
-      background: rgba(91, 136, 255, 0.12);
-      border: 1px solid rgba(156, 236, 255, 0.24);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
-    }
-
-    .panel-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 22px;
-      padding: 18px;
-      backdrop-filter: blur(18px);
-      margin-top: 8px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .control-stack {
-      display: grid;
-      gap: 14px;
-      margin-top: 0;
-    }
-
-    .stat-mini {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 13px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .stat-mini strong {
-      color: #f5f9ff;
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .action-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-      align-items: center;
-    }
-
-    button {
-      appearance: none;
-      border: none;
-      cursor: pointer;
-      transition: 0.24s ease;
-      font-family: inherit;
-    }
-
-    .btn-primary {
-      position: relative;
-      min-width: 260px;
-      min-height: 74px;
-      padding: 0 34px;
-      color: #f7fbff;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      background:
-        linear-gradient(135deg, rgba(120,170,255,0.18), rgba(90,220,255,0.10)),
-        rgba(255,255,255,0.04);
-      border: 1px solid rgba(135, 220, 255, 0.45);
-      clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04) inset,
-        0 0 24px rgba(90, 200, 255, 0.16),
-        0 10px 28px rgba(65, 110, 255, 0.22);
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-primary::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-      transform: translateX(-120%);
-      animation: buttonSweep 3s linear infinite;
-      pointer-events: none;
-    }
-
-    .btn-primary::after {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(160, 235, 255, 0.18);
-      clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
-      pointer-events: none;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05) inset,
-        0 0 34px rgba(120, 220, 255, 0.24),
-        0 14px 34px rgba(65, 110, 255, 0.28);
-    }
-
-    @keyframes buttonSweep {
-      0% { transform: translateX(-120%); }
-      100% { transform: translateX(180%); }
-    }
-
-    .btn-secondary {
-      min-height: 40px;
-      padding: 0 16px;
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      background: rgba(255,255,255,0.06);
-      color: #dce8ff;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .manual-wrap {
-      margin-top: auto;
-      padding-top: 20px;
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .small-note {
       margin-top: 14px;
-      font-size: 12px;
-      line-height: 1.7;
-      color: rgba(238, 246, 255, 0.52);
-    }
-
-    .error-box {
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-      display: none;
-    }
-
-    .scan-stage {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      max-height: 70vh;
-      border-radius: 28px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(18, 32, 56, 0.8), rgba(7, 14, 28, 0.96));
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.02),
-        0 0 28px rgba(110, 168, 255, 0.08);
-    }
-
-    video, canvas, .captured-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform: scaleX(-1);
-      filter: saturate(1.04) contrast(1.05);
-    }
-
-    .captured-image {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      display: none;
-    }
-
-    .scan-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    .scan-overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.36;
-    }
-
-    .scan-overlay::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(143, 230, 255, 0.24);
-      border-radius: 28px;
-      box-shadow: inset 0 0 96px rgba(110, 168, 255, 0.1);
-    }
-
-    .face-guide {
-      position: absolute;
-      inset: 12% 16%;
-      border-radius: 46% 46% 44% 44% / 38% 38% 54% 54%;
-      border: 1.4px solid rgba(143, 230, 255, 0.46);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05),
-        0 0 34px rgba(110, 168, 255, 0.16);
-      opacity: 0.8;
-    }
-
-    .scan-line {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, rgba(143,230,255,0.95), transparent);
-      box-shadow:
-        0 0 18px rgba(143,230,255,0.96),
-        0 0 34px rgba(74,125,255,0.5);
-      animation: scanMove 2.2s linear infinite;
-      opacity: 0.95;
-    }
-
-    @keyframes scanMove {
-      0% { top: 8%; }
-      100% { top: 90%; }
-    }
-
-    .corner {
-      position: absolute;
-      width: 46px;
-      height: 46px;
-      border-color: rgba(214, 236, 255, 0.86);
-      z-index: 5;
-    }
-
-    .corner.tl {
-      top: 16px;
-      left: 16px;
-      border-top: 2px solid;
-      border-left: 2px solid;
-      border-top-left-radius: 14px;
-    }
-
-    .corner.tr {
-      top: 16px;
-      right: 16px;
-      border-top: 2px solid;
-      border-right: 2px solid;
-      border-top-right-radius: 14px;
-    }
-
-    .corner.bl {
-      bottom: 16px;
-      left: 16px;
-      border-bottom: 2px solid;
-      border-left: 2px solid;
-      border-bottom-left-radius: 14px;
-    }
-
-    .corner.br {
-      bottom: 16px;
-      right: 16px;
-      border-bottom: 2px solid;
-      border-right: 2px solid;
-      border-bottom-right-radius: 14px;
-    }
-
-    .scan-status {
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
-      z-index: 6;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(10, 17, 32, 0.5);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      font-size: 12px;
-      line-height: 1.6;
-      color: var(--muted);
-      max-width: 70%;
-    }
-
-    .scan-status strong {
-      display: block;
-      color: #edf7ff;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .loading-wrap, .result-wrap, .fail-wrap {
-      width: 100%;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 42px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .loading-box, .result-box, .fail-box {
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      backdrop-filter: blur(20px);
-      padding: 30px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .loading-grid, .result-grid {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 26px;
-      align-items: stretch;
-    }
-
-    .loading-visual, .result-visual {
-      border-radius: 24px;
-      min-height: 430px;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(18, 30, 54, 0.92), rgba(8, 15, 29, 0.96));
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .loading-visual img, .result-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scaleX(-1);
-      opacity: 0.88;
-      filter: contrast(1.05) saturate(0.98);
-    }
-
-    .mesh {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 32%, rgba(143,230,255,0.18), transparent 18%),
-        radial-gradient(circle at 70% 32%, rgba(143,230,255,0.18), transparent 18%),
-        radial-gradient(circle at 50% 54%, rgba(110,168,255,0.18), transparent 16%),
-        radial-gradient(circle at 50% 70%, rgba(110,168,255,0.12), transparent 16%);
-      pointer-events: none;
-    }
-
-    .mesh-line {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(143,230,255,0.95), transparent);
-      box-shadow: 0 0 18px rgba(110,168,255,0.4);
-      animation: scanMove 1.8s linear infinite;
-    }
-
-    .loading-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 22px;
-      min-height: 430px;
-    }
-
-    .loading-title, .result-title, .fail-title {
-      font-size: clamp(28px, 3vw, 46px);
-      line-height: 1.06;
-      letter-spacing: -0.04em;
-      max-width: 720px;
-    }
-
-    .loading-text, .result-desc, .fail-desc {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--muted);
-    }
-
-    .progress-wrap {
-      width: 100%;
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #d8f5ff, #9cecff, #5b88ff);
-      box-shadow: 0 0 18px rgba(110,168,255,0.44);
-      transition: width 0.14s linear;
-    }
-
-    .progress-num {
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      color: rgba(238,246,255,0.62);
-    }
-
-    .data-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 24px 0;
-    }
-
-    .data-card {
-      border-radius: 18px;
-      padding: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      min-height: 112px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .data-label {
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: rgba(220, 234, 255, 0.66);
-      line-height: 1.6;
-    }
-
-    .data-value {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: #ffffff;
-    }
-
-    .data-note {
-      font-size: 12px;
-      color: rgba(220, 234, 255, 0.58);
-      line-height: 1.6;
-    }
-
-    .mode-card {
-      border-radius: 22px;
-      padding: 22px;
-      background:
-        linear-gradient(135deg, rgba(91,136,255,0.16), rgba(156,236,255,0.05));
-      border: 1px solid rgba(156,236,255,0.16);
-      margin-bottom: 16px;
-    }
-
-    .mode-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
-    .mode-name {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: #fff;
-    }
-
-    .mode-badge {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: #e3f2ff;
-    }
-
-    .mode-text {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
     }
 
     .tag {
-      padding: 10px 13px;
+      padding: 9px 12px;
       border-radius: 999px;
       font-size: 12px;
       color: #eaf6ff;
@@ -2206,1502 +753,13 @@
     .sub-panels {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .sub-card {
-      border-radius: 18px;
-      padding: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .sub-card h3 {
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      color: rgba(220, 234, 255, 0.64);
-      margin-bottom: 10px;
-    }
-
-    .sub-card p {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #edf5ff;
-    }
-
-    .footer-actions {
-      display: flex;
       gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    @media (max-width: 1024px) {
-      .layout,
-      .loading-grid,
-      .result-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .left-panel {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-
-      .data-grid,
-      .sub-panels {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        padding: 14px;
-      }
-
-      .left-panel,
-      .right-panel,
-      .loading-wrap,
-      .result-wrap,
-      .fail-wrap {
-        padding: 18px;
-      }
-
-      .topbar {
-        padding: 0 16px;
-      }
-
-      .btn-primary {
-        min-width: 220px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <section class="page active" id="scanPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">Skin Analysis Interface</div>
-      </div>
-
-      <div class="layout">
-        <div class="left-panel">
-          <div class="eyebrow">Skin Analysis</div>
-          <h1 class="title">NEO HUE</h1>
-          <p class="desc">Construct a clean and confident identity.</p>
-
-          <div class="badge-row">
-            <div class="badge">Skin Scan</div>
-            <div class="badge">Makeup Analysis</div>
-            <div class="badge">Adaptive Profile</div>
-          </div>
-
-          <div class="panel-card">
-            <div class="control-stack">
-              <div class="stat-mini">
-                <span>Capture Mode</span>
-                <strong>Live Camera</strong>
-              </div>
-              <div class="stat-mini">
-                <span>Scan Target</span>
-                <strong>Skin / Tone / Makeup</strong>
-              </div>
-              <div class="stat-mini">
-                <span>Output</span>
-                <strong>Makeup Recommendation</strong>
-              </div>
-            </div>
-
-            <div class="action-row">
-              <button class="btn-primary" id="captureBtn">Scan Face</button>
-            </div>
-
-            <div class="small-note">
-              Use a phone or laptop browser for the best result.<br />
-              If the camera cannot be accessed, open this page through localhost or HTTPS.
-            </div>
-
-            <div class="error-box" id="errorBox"></div>
-          </div>
-
-          <div class="manual-wrap">
-            <button class="btn-secondary" id="startCameraBtn">Manual Camera Start</button>
-          </div>
-        </div>
-
-        <div class="right-panel">
-          <div class="scan-stage">
-            <video id="video" autoplay playsinline muted></video>
-            <canvas id="canvas" style="display:none;"></canvas>
-            <img id="capturedImage" class="captured-image" alt="captured face" />
-
-            <div class="scan-overlay">
-              <div class="face-guide"></div>
-              <div class="scan-line"></div>
-            </div>
-
-            <div class="corner tl"></div>
-            <div class="corner tr"></div>
-            <div class="corner bl"></div>
-            <div class="corner br"></div>
-
-            <div class="scan-status">
-              <strong>Live Scan Ready</strong>
-              Align your face inside the guide frame.<br />
-              The system will analyze skin condition and generate a makeup profile.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="loadingPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">分析進行中 Analysis in Progress</div>
-      </div>
-
-      <div class="loading-wrap">
-        <div class="loading-box">
-          <div class="loading-grid">
-            <div class="loading-visual">
-              <img id="loadingImage" alt="loading preview" />
-              <div class="mesh"></div>
-              <div class="mesh-line"></div>
-            </div>
-
-            <div class="loading-content">
-              <div class="eyebrow">掃描中 Scanning / 分析中 Analyzing</div>
-              <h2 class="loading-title">
-                系統正在分析你的膚況與妝容適配度<br />
-                Analyzing your skin condition and makeup compatibility
-              </h2>
-              <p class="loading-text" id="loadingText">
-                正在初始化臉部掃描... Initializing face scan...
-              </p>
-
-              <div class="progress-wrap">
-                <div class="progress-bar" id="progressBar"></div>
-              </div>
-              <div class="progress-num" id="progressNum">0%</div>
-
-              <div class="panel-card" style="margin-top: 8px;">
-                <div class="control-stack">
-                  <div class="stat-mini">
-                    <span>目前流程 Current Process</span>
-                    <strong id="loadingProcess">肌膚穩定度分析 Skin Stability Analysis</strong>
-                  </div>
-                  <div class="stat-mini">
-                    <span>系統判讀 System Interpretation</span>
-                    <strong>肌膚與妝容適配資料<br>Skin and Makeup Profile</strong>
-                  </div>
-                  <div class="stat-mini">
-                    <span>預計輸出 Estimated Result</span>
-                    <strong>妝容建議 Makeup Recommendation</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="failPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">Scan Failed</div>
-      </div>
-
-      <div class="fail-wrap">
-        <div class="fail-box">
-          <h2 class="fail-title">掃描失敗<br>No face detected</h2>
-          <p class="fail-desc" style="margin-top:16px;">
-            請重新對準鏡頭，讓臉部位於中央掃描框內，並保持畫面明亮。<br />
-            Please align your face inside the frame and make sure the scene is well lit.
-          </p>
-          <div class="footer-actions">
-            <button class="btn-primary" id="retryBtn">Scan Again</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="resultPage">
-    <div class="frame">
-      <div class="topbar">
-        <div class="brand-left">
-          <div class="brand-dot"></div>
-          <div class="brand-name">NEO HUE</div>
-        </div>
-        <div class="top-right">分析完成 Analysis Complete</div>
-      </div>
-
-      <div class="result-wrap">
-        <div class="result-box">
-          <div class="result-grid">
-            <div class="result-visual">
-              <img id="resultImage" alt="result face" />
-            </div>
-
-            <div>
-              <div class="eyebrow">Analysis Complete</div>
-              <h2 class="result-title">
-                你的肌膚分析已完成<br />
-                Your skin analysis is complete
-              </h2>
-              <p class="result-desc" style="margin-top:12px;">
-                系統已根據目前膚況、膚色狀態與妝容適配性生成分析結果。<br />
-                The system has generated results based on skin condition, tone status and makeup compatibility.
-              </p>
-
-              <div class="data-grid">
-                <div class="data-card">
-                  <div class="data-label">肌膚穩定度 Skin Stability</div>
-                  <div class="data-value" id="surfaceValue">84%</div>
-                  <div class="data-note" id="surfaceNote">肌膚狀態整體穩定，適合進行日常妝容疊加。 Skin condition appears stable for everyday makeup layering.</div>
-                </div>
-
-                <div class="data-card">
-                  <div class="data-label">膚色均衡度 Tone Balance</div>
-                  <div class="data-value" id="toneValue">78%</div>
-                  <div class="data-note" id="toneNote">膚色分布整體均衡，底妝調整需求較低。 Tone distribution appears balanced with low correction demand.</div>
-                </div>
-
-                <div class="data-card">
-                  <div class="data-label">保濕狀態 Hydration Level</div>
-                  <div class="data-value" id="fatigueValue">31%</div>
-                  <div class="data-note" id="fatigueNote">肌膚含水狀態偏低，建議優先補強服貼與光澤表現。 Hydration reads lower, so improving adhesion and glow is recommended.</div>
-                </div>
-
-                <div class="data-card">
-                  <div class="data-label">妝容貼合度 Makeup Compatibility</div>
-                  <div class="data-value" id="readabilityValue">91%</div>
-                  <div class="data-note" id="readabilityNote">目前肌膚與妝容系統具有高相容性，適合快速上妝。 Current skin condition shows high compatibility with makeup application.</div>
-                </div>
-              </div>
-
-              <div class="mode-card">
-                <div class="mode-top">
-                  <div class="mode-name" id="modeName">Cool Blur 冷霧模式</div>
-                  <div class="mode-badge">妝容建議 Makeup Recommendation</div>
-                </div>
-                <div class="mode-text" id="modeText">
-                  適合柔化紋理、降低表面顆粒感，呈現乾淨霧面妝效。<br />
-                  Best suited for diffusing texture and creating a clean soft-matte finish.
-                </div>
-
-                <div class="tags" id="modeTags">
-                  <div class="tag">柔霧 Soft Blur</div>
-                  <div class="tag">均勻 Tone Even</div>
-                  <div class="tag">低飽和 Low Saturation</div>
-                </div>
-              </div>
-
-              <div class="sub-panels">
-                <div class="sub-card">
-                  <h3>建議產品 Suggested Product</h3>
-                  <p id="productText">NEO HUE Mist / 快速修飾膚面 Rapid skin correction / 輕薄服貼 Lightweight finish</p>
-                </div>
-
-                <div class="sub-card">
-                  <h3>系統備註 System Note</h3>
-                  <p id="systemText">目前肌膚狀態適合均勻膚色、柔化紋理並維持乾淨妝感。 Current skin condition is suited for tone evening and soft-surface refinement.</p>
-                </div>
-              </div>
-
-              <div class="footer-actions">
-                <button class="btn-primary" id="rescanBtn">Scan Again</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    const scanPage = document.getElementById("scanPage");
-    const loadingPage = document.getElementById("loadingPage");
-    const resultPage = document.getElementById("resultPage");
-    const failPage = document.getElementById("failPage");
-
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const capturedImage = document.getElementById("capturedImage");
-    const loadingImage = document.getElementById("loadingImage");
-    const resultImage = document.getElementById("resultImage");
-
-    const startCameraBtn = document.getElementById("startCameraBtn");
-    const captureBtn = document.getElementById("captureBtn");
-    const rescanBtn = document.getElementById("rescanBtn");
-    const retryBtn = document.getElementById("retryBtn");
-    const errorBox = document.getElementById("errorBox");
-
-    const loadingText = document.getElementById("loadingText");
-    const loadingProcess = document.getElementById("loadingProcess");
-    const progressBar = document.getElementById("progressBar");
-    const progressNum = document.getElementById("progressNum");
-
-    let stream = null;
-    let capturedDataURL = "";
-
-    function showPage(page) {
-      [scanPage, loadingPage, resultPage, failPage].forEach(p => p.classList.remove("active"));
-      page.classList.add("active");
-    }
-
-    function showError(message) {
-      errorBox.style.display = "block";
-      errorBox.textContent = message;
-    }
-
-    function hideError() {
-      errorBox.style.display = "none";
-      errorBox.textContent = "";
-    }
-
-    function resetCapturedView() {
-      capturedDataURL = "";
-      capturedImage.src = "";
-      capturedImage.style.display = "none";
-      loadingImage.src = "";
-      resultImage.src = "";
-      video.style.display = "block";
-    }
-
-    async function startCamera() {
-      hideError();
-
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        showError("This browser does not support camera access.");
-        return;
-      }
-
-      try {
-        if (stream) {
-          const activeVideoTrack = stream.getVideoTracks()[0];
-          if (activeVideoTrack && activeVideoTrack.readyState === "live") {
-            video.srcObject = stream;
-            await video.play();
-            return;
-          }
-          stream.getTracks().forEach(track => track.stop());
-        }
-
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user",
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-          },
-          audio: false
-        });
-
-        video.srcObject = stream;
-        await video.play();
-      } catch (error) {
-        showError("Camera failed to start. Please check permissions or use HTTPS / localhost.");
-        console.error(error);
-      }
-    }
-
-    async function returnToScan() {
-      resetCapturedView();
-      showPage(scanPage);
-      await startCamera();
-    }
-
-    async function detectFaceFromCanvas() {
-      if (!("FaceDetector" in window)) {
-        return true;
-      }
-
-      try {
-        const detector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 });
-        const faces = await detector.detect(canvas);
-        return faces.length > 0;
-      } catch (e) {
-        console.warn("Face detection failed, fallback to continue.", e);
-        return true;
-      }
-    }
-
-    async function captureFace() {
-      if (!video.srcObject) {
-        showError("Please start the camera first.");
-        return;
-      }
-
-      const width = video.videoWidth;
-      const height = video.videoHeight;
-
-      if (!width || !height) {
-        showError("Camera feed is not ready yet.");
-        return;
-      }
-
-      canvas.width = width;
-      canvas.height = height;
-
-      const ctx = canvas.getContext("2d");
-      ctx.save();
-      ctx.translate(width, 0);
-      ctx.scale(-1, 1);
-      ctx.drawImage(video, 0, 0, width, height);
-      ctx.restore();
-
-      const hasFace = await detectFaceFromCanvas();
-      if (!hasFace) {
-        showPage(failPage);
-        return;
-      }
-
-      capturedDataURL = canvas.toDataURL("image/png");
-      capturedImage.src = capturedDataURL;
-      capturedImage.style.display = "block";
-      video.style.display = "none";
-
-      loadingImage.src = capturedDataURL;
-      resultImage.src = capturedDataURL;
-
-      runAnalysis();
-    }
-
-    function runAnalysis() {
-      showPage(loadingPage);
-
-      const steps = [
-        {
-          text: "正在初始化臉部掃描... Initializing face scan...",
-          process: "肌膚穩定度分析 Skin Stability Analysis"
-        },
-        {
-          text: "正在讀取肌膚狀態... Reading skin condition...",
-          process: "肌膚狀態分析 Skin Condition Analysis"
-        },
-        {
-          text: "正在偵測膚色均衡與色調表現... Detecting tone balance and complexion status...",
-          process: "膚色均衡分析 Tone Balance Analysis"
-        },
-        {
-          text: "正在估算保濕與服貼狀態... Estimating hydration and adhesion condition...",
-          process: "保濕狀態估算 Hydration Estimate"
-        },
-        {
-          text: "正在比對妝容貼合度... Matching makeup compatibility...",
-          process: "妝容貼合分析 Makeup Compatibility Analysis"
-        },
-        {
-          text: "正在生成分析結果... Generating analysis result...",
-          process: "妝容建議生成 Makeup Recommendation Render"
-        }
-      ];
-
-      let progress = 0;
-      let stepIndex = 0;
-
-      loadingText.textContent = steps[0].text;
-      loadingProcess.textContent = steps[0].process;
-      progressBar.style.width = "0%";
-      progressNum.textContent = "0%";
-
-      const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 4) + 2;
-        if (progress > 100) progress = 100;
-
-        progressBar.style.width = progress + "%";
-        progressNum.textContent = progress + "%";
-
-        const mappedIndex = Math.min(
-          Math.floor((progress / 100) * steps.length),
-          steps.length - 1
-        );
-
-        if (mappedIndex !== stepIndex) {
-          stepIndex = mappedIndex;
-          loadingText.textContent = steps[stepIndex].text;
-          loadingProcess.textContent = steps[stepIndex].process;
-        }
-
-        if (progress >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            generateResult();
-            showPage(resultPage);
-          }, 420);
-        }
-      }, 140);
-    }
-
-    function clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-    }
-
-    function averageRGBToBrightness(r, g, b) {
-      return 0.299 * r + 0.587 * g + 0.114 * b;
-    }
-
-    function analyzeFaceData() {
-      const width = canvas.width;
-      const height = canvas.height;
-      const ctx = canvas.getContext("2d");
-      const imageData = ctx.getImageData(0, 0, width, height).data;
-
-      const startX = Math.floor(width * 0.22);
-      const endX = Math.floor(width * 0.78);
-      const startY = Math.floor(height * 0.18);
-      const endY = Math.floor(height * 0.82);
-
-      let totalR = 0;
-      let totalG = 0;
-      let totalB = 0;
-      let totalBrightness = 0;
-      let totalContrastBase = 0;
-      let count = 0;
-
-      for (let y = startY; y < endY; y += 3) {
-        for (let x = startX; x < endX; x += 3) {
-          const index = (y * width + x) * 4;
-          const r = imageData[index];
-          const g = imageData[index + 1];
-          const b = imageData[index + 2];
-
-          const brightness = averageRGBToBrightness(r, g, b);
-
-          totalR += r;
-          totalG += g;
-          totalB += b;
-          totalBrightness += brightness;
-          count++;
-        }
-      }
-
-      const avgR = totalR / count;
-      const avgG = totalG / count;
-      const avgB = totalB / count;
-      const avgBrightness = totalBrightness / count;
-
-      for (let y = startY; y < endY; y += 6) {
-        for (let x = startX; x < endX; x += 6) {
-          const index = (y * width + x) * 4;
-          const r = imageData[index];
-          const g = imageData[index + 1];
-          const b = imageData[index + 2];
-          const brightness = averageRGBToBrightness(r, g, b);
-          totalContrastBase += Math.abs(brightness - avgBrightness);
-        }
-      }
-
-      const sampledContrast = totalContrastBase / Math.ceil(((endY - startY) / 6) * ((endX - startX) / 6));
-
-      const brightnessNorm = avgBrightness / 255;
-      const warmth = avgR - avgB;
-      const neutralDistance = Math.abs(avgR - avgB);
-      const contrastNorm = clamp(sampledContrast / 64, 0, 1);
-
-      let skinStability = Math.round(60 + brightnessNorm * 24 + contrastNorm * 10);
-      let toneBalance = Math.round(90 - neutralDistance * 0.34 + brightnessNorm * 4);
-      let hydration = Math.round(72 - brightnessNorm * 34 + (1 - contrastNorm) * 12);
-      let compatibility = Math.round(skinStability * 0.34 + toneBalance * 0.38 + (100 - hydration) * 0.10 + contrastNorm * 16);
-
-      skinStability = clamp(skinStability, 64, 96);
-      toneBalance = clamp(toneBalance, 60, 95);
-      hydration = clamp(hydration, 18, 78);
-      compatibility = clamp(compatibility, 68, 97);
-
-      return {
-        avgR,
-        avgG,
-        avgB,
-        avgBrightness,
-        brightnessNorm,
-        warmth,
-        neutralDistance,
-        contrastNorm,
-        skinStability,
-        toneBalance,
-        hydration,
-        compatibility
-      };
-    }
-
-    function chooseProfile(metrics) {
-      const { hydration, toneBalance, compatibility, warmth, brightnessNorm, contrastNorm } = metrics;
-
-      if (hydration >= 55) {
-        return {
-          mode: "Hydra Veil 水潤薄膜",
-          text: "適合提升保濕光澤與整體服貼度，妝效偏輕透柔和。 Best suited for improving hydration glow and a smooth adhesive finish.",
-          tags: ["水潤 Hydrated", "輕透 Sheer", "柔光 Soft Glow"],
-          product: "NEO HUE Essence Mist / 水潤修飾 Hydrating correction / 輕盈貼膚 Lightweight veil",
-          note: "建議優先補足肌膚含水感，再進行妝面疊加。 Improve hydration first for a more even makeup finish."
-        };
-      }
-
-      if (compatibility >= 90 && brightnessNorm >= 0.58) {
-        return {
-          mode: "Public Glow 公開光感",
-          text: "適合展現明亮、乾淨、友善的妝效表現。 Designed for a bright, clean and approachable makeup finish.",
-          tags: ["明亮 Bright", "乾淨 Clean", "展示 Ready"],
-          product: "NEO HUE Mist Light / 即時提亮 Immediate brightening / 輕薄修飾 Lightweight finish",
-          note: "目前膚況與妝容系統相容性高，適合快速完成清透妝感。 Skin condition is highly compatible with quick lightweight makeup."
-        };
-      }
-
-      if (toneBalance >= 84 && compatibility >= 84 && contrastNorm >= 0.22) {
-        return {
-          mode: "Clear Professional 清晰專業",
-          text: "適合均勻修飾膚色、提升輪廓乾淨度與妝容整體秩序感。 Optimized for even tone correction and a structured polished finish.",
-          tags: ["均勻 Even", "清晰 Clear", "俐落 Structured"],
-          product: "NEO HUE Mist Pro / 精準修飾 Precision correction / 穩定妝效 Balanced finish",
-          note: "此肌膚狀態適合打造高完成度且整潔的妝面。 This skin profile supports a more refined and controlled makeup look."
-        };
-      }
-
-      if (warmth > 8) {
-        return {
-          mode: "Soft Neutral 柔和中性",
-          text: "適合自然修飾膚色，維持輕柔且不過度的妝感。 Balances complexion softly for a natural and understated finish.",
-          tags: ["自然 Natural", "柔和 Soft", "平衡 Balanced"],
-          product: "NEO HUE Capsule / 色調平衡 Tone balancing / 日常妝效 Daily finish",
-          note: "整體膚色狀態適合自然均衡型妝容調整。 Skin tone condition is well suited to natural balancing correction."
-        };
-      }
-
-      return {
-        mode: "Cool Blur 冷霧模式",
-        text: "適合柔化紋理、降低表面顆粒感，呈現乾淨霧面妝效。 Best suited for diffusing texture and creating a clean soft-matte finish.",
-        tags: ["柔霧 Soft Blur", "均勻 Tone Even", "低飽和 Low Saturation"],
-        product: "NEO HUE Mist / 快速修飾膚面 Rapid skin correction / 輕薄服貼 Lightweight finish",
-        note: "目前肌膚狀態適合均勻膚色、柔化紋理並維持乾淨妝感。 Current skin condition is suited for tone evening and soft-surface refinement."
-      };
-    }
-
-    function buildNotes(metrics) {
-      const { brightnessNorm, neutralDistance, hydration, compatibility } = metrics;
-
-      let skinNote = "肌膚狀態整體穩定，適合進行日常妝容疊加。 Skin condition appears stable for everyday makeup layering.";
-      if (brightnessNorm < 0.42) {
-        skinNote = "肌膚表面穩定度略低，建議先柔化紋理再進行上妝。 Surface stability appears slightly lower; smoothing before makeup is recommended.";
-      } else if (brightnessNorm > 0.68) {
-        skinNote = "肌膚狀態穩定，底妝延展與服貼表現預期較佳。 Skin condition appears stable with good expected foundation spread and adhesion.";
-      }
-
-      let toneNote = "膚色分布整體均衡，底妝調整需求較低。 Tone distribution appears balanced with low correction demand.";
-      if (neutralDistance > 24) {
-        toneNote = "膚色局部有些微冷暖差異，建議加強色調修飾。 Minor warm-cool variation is present; added tone correction is recommended.";
-      } else if (neutralDistance < 10) {
-        toneNote = "膚色均衡度高，適合輕薄型底妝與局部修飾。 Tone balance is high and suits lightweight base makeup.";
-      }
-
-      let hydrationNote = "肌膚含水狀態偏低，建議優先補強服貼與光澤表現。 Hydration reads lower, so improving adhesion and glow is recommended.";
-      if (hydration >= 52) {
-        hydrationNote = "肌膚保濕狀態穩定，適合清透或光澤型妝感。 Hydration appears stable and suits sheer or radiant makeup finishes.";
-      } else if (hydration <= 28) {
-        hydrationNote = "肌膚保濕狀態不足，建議避免過度堆疊粉體。 Hydration appears low; heavy powder layering should be avoided.";
-      }
-
-      let compatibilityNote = "目前肌膚與妝容系統具有高相容性，適合快速上妝。 Current skin condition shows high compatibility with makeup application.";
-      if (compatibility < 74) {
-        compatibilityNote = "目前妝容貼合度偏低，建議先改善肌膚基底後再進行完整妝容。 Makeup compatibility is lower; improve base skin condition before full application.";
-      } else if (compatibility > 90) {
-        compatibilityNote = "目前肌膚狀態與妝容貼合度極佳，適合快速完成妝面。 Skin condition shows excellent compatibility for quick makeup application.";
-      }
-
-      return { skinNote, toneNote, hydrationNote, compatibilityNote };
-    }
-
-    function generateResult() {
-      const metrics = analyzeFaceData();
-
-      document.getElementById("surfaceValue").textContent = metrics.skinStability + "%";
-      document.getElementById("toneValue").textContent = metrics.toneBalance + "%";
-      document.getElementById("fatigueValue").textContent = metrics.hydration + "%";
-      document.getElementById("readabilityValue").textContent = metrics.compatibility + "%";
-
-      const notes = buildNotes(metrics);
-      document.getElementById("surfaceNote").textContent = notes.skinNote;
-      document.getElementById("toneNote").textContent = notes.toneNote;
-      document.getElementById("fatigueNote").textContent = notes.hydrationNote;
-      document.getElementById("readabilityNote").textContent = notes.compatibilityNote;
-
-      const chosen = chooseProfile(metrics);
-
-      document.getElementById("modeName").textContent = chosen.mode;
-      document.getElementById("modeText").textContent = chosen.text;
-      document.getElementById("productText").textContent = chosen.product;
-      document.getElementById("systemText").textContent = chosen.note;
-
-      const modeTags = document.getElementById("modeTags");
-      modeTags.innerHTML = "";
-      chosen.tags.forEach(tagText => {
-        const div = document.createElement("div");
-        div.className = "tag";
-        div.textContent = tagText;
-        modeTags.appendChild(div);
-      });
-    }
-
-    startCameraBtn.addEventListener("click", startCamera);
-    captureBtn.addEventListener("click", captureFace);
-    rescanBtn.addEventListener("click", returnToScan);
-    retryBtn.addEventListener("click", returnToScan);
-
-    window.addEventListener("load", async () => {
-      resetCapturedView();
-      await startCamera();
-    });
-
-    window.addEventListener("beforeunload", () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-    });
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEO HUE｜Skin Analysis</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Sora:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg-1: #f3f8ff;
-      --bg-2: #dfeeff;
-      --bg-3: #c7dcff;
-      --panel: rgba(255, 255, 255, 0.14);
-      --panel-strong: rgba(255, 255, 255, 0.22);
-      --line: rgba(180, 225, 255, 0.22);
-      --text: #f8fbff;
-      --muted: rgba(232, 242, 255, 0.78);
-      --blue: #5b88ff;
-      --blue-2: #8ab8ff;
-      --cyan: #9cecff;
-      --deep: #08101d;
-      --deep-2: #0d1728;
-      --shadow: 0 18px 60px rgba(40, 85, 170, 0.18);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-      font-family: "Sora", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(156, 236, 255, 0.18), transparent 22%),
-        radial-gradient(circle at 88% 14%, rgba(138, 184, 255, 0.22), transparent 24%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2) 52%, var(--bg-3));
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.3;
-      mix-blend-mode: soft-light;
-    }
-
-    .page {
-      display: none;
-      min-height: 100vh;
-      padding: 28px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .page.active {
-      display: flex;
-    }
-
-    .frame {
-      width: min(1280px, 100%);
-      min-height: 84vh;
-      border-radius: 34px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(10, 18, 34, 0.88), rgba(9, 16, 30, 0.84));
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: var(--shadow);
-      position: relative;
-    }
-
-    .frame::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 18% 18%, rgba(156, 236, 255, 0.10), transparent 18%),
-        radial-gradient(circle at 84% 14%, rgba(91, 136, 255, 0.14), transparent 20%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%);
-    }
-
-    .topbar {
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      z-index: 2;
-      backdrop-filter: blur(14px);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .brand-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #eef7ff, var(--blue));
-      box-shadow: 0 0 16px rgba(138, 184, 255, 0.7);
-    }
-
-    .brand-name {
-      font-size: 13px;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .top-right {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      color: rgba(238, 246, 255, 0.58);
-    }
-
-    .layout {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      min-height: calc(84vh - 68px);
-    }
-
-    .left-panel,
-    .right-panel {
-      padding: 28px;
-    }
-
-    .left-panel {
-      border-right: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      margin-bottom: 18px;
-      width: fit-content;
-    }
-
-    h1, h2, h3, p {
-      margin: 0;
-    }
-
-    .title {
-      font-family: "Michroma", "Sora", sans-serif;
-      font-size: clamp(52px, 7vw, 92px);
-      line-height: 0.98;
-      letter-spacing: -0.03em;
-      font-weight: 400;
-      margin-bottom: 18px;
-      max-width: 760px;
-      color: #f8fbff;
-      text-shadow: 0 0 28px rgba(140, 230, 255, 0.08);
-    }
-
-    .desc {
-      max-width: 640px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.85;
-      margin-bottom: 28px;
-    }
-
-    .badge-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-
-    .badge {
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: #ecf4ff;
-      background: rgba(91, 136, 255, 0.12);
-      border: 1px solid rgba(156, 236, 255, 0.24);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
-    }
-
-    .panel-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 22px;
-      padding: 18px;
-      backdrop-filter: blur(18px);
-      margin-top: 8px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .control-stack {
-      display: grid;
-      gap: 14px;
-      margin-top: 0;
-    }
-
-    .stat-mini {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 13px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .stat-mini strong {
-      color: #f5f9ff;
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .action-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-      align-items: center;
-    }
-
-    button {
-      appearance: none;
-      border: none;
-      cursor: pointer;
-      transition: 0.24s ease;
-      font-family: inherit;
-    }
-
-    .btn-primary {
-      position: relative;
-      min-width: 260px;
-      min-height: 74px;
-      padding: 0 34px;
-      color: #f7fbff;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      background:
-        linear-gradient(135deg, rgba(120,170,255,0.18), rgba(90,220,255,0.10)),
-        rgba(255,255,255,0.04);
-      border: 1px solid rgba(135, 220, 255, 0.45);
-      clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04) inset,
-        0 0 24px rgba(90, 200, 255, 0.16),
-        0 10px 28px rgba(65, 110, 255, 0.22);
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-primary::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-      transform: translateX(-120%);
-      animation: buttonSweep 3s linear infinite;
-      pointer-events: none;
-    }
-
-    .btn-primary::after {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(160, 235, 255, 0.18);
-      clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
-      pointer-events: none;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05) inset,
-        0 0 34px rgba(120, 220, 255, 0.24),
-        0 14px 34px rgba(65, 110, 255, 0.28);
-    }
-
-    @keyframes buttonSweep {
-      0% { transform: translateX(-120%); }
-      100% { transform: translateX(180%); }
-    }
-
-    .btn-secondary {
-      min-height: 40px;
-      padding: 0 16px;
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      background: rgba(255,255,255,0.06);
-      color: #dce8ff;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .manual-wrap {
-      margin-top: auto;
-      padding-top: 20px;
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .small-note {
       margin-top: 14px;
-      font-size: 12px;
-      line-height: 1.7;
-      color: rgba(238, 246, 255, 0.52);
-    }
-
-    .error-box {
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-      display: none;
-    }
-
-    .scan-stage {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      max-height: 70vh;
-      border-radius: 28px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(18, 32, 56, 0.8), rgba(7, 14, 28, 0.96));
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.02),
-        0 0 28px rgba(110, 168, 255, 0.08);
-    }
-
-    video, canvas, .captured-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform: scaleX(-1);
-      filter: saturate(1.04) contrast(1.05);
-    }
-
-    .captured-image {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      display: none;
-    }
-
-    .scan-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    .scan-overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.36;
-    }
-
-    .scan-overlay::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(143, 230, 255, 0.24);
-      border-radius: 28px;
-      box-shadow: inset 0 0 96px rgba(110, 168, 255, 0.1);
-    }
-
-    .face-guide {
-      position: absolute;
-      inset: 12% 16%;
-      border-radius: 46% 46% 44% 44% / 38% 38% 54% 54%;
-      border: 1.4px solid rgba(143, 230, 255, 0.46);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05),
-        0 0 34px rgba(110, 168, 255, 0.16);
-      opacity: 0.8;
-    }
-
-    .scan-line {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, rgba(143,230,255,0.95), transparent);
-      box-shadow:
-        0 0 18px rgba(143,230,255,0.96),
-        0 0 34px rgba(74,125,255,0.5);
-      animation: scanMove 2.2s linear infinite;
-      opacity: 0.95;
-    }
-
-    @keyframes scanMove {
-      0% { top: 8%; }
-      100% { top: 90%; }
-    }
-
-    .corner {
-      position: absolute;
-      width: 46px;
-      height: 46px;
-      border-color: rgba(214, 236, 255, 0.86);
-      z-index: 5;
-    }
-
-    .corner.tl {
-      top: 16px;
-      left: 16px;
-      border-top: 2px solid;
-      border-left: 2px solid;
-      border-top-left-radius: 14px;
-    }
-
-    .corner.tr {
-      top: 16px;
-      right: 16px;
-      border-top: 2px solid;
-      border-right: 2px solid;
-      border-top-right-radius: 14px;
-    }
-
-    .corner.bl {
-      bottom: 16px;
-      left: 16px;
-      border-bottom: 2px solid;
-      border-left: 2px solid;
-      border-bottom-left-radius: 14px;
-    }
-
-    .corner.br {
-      bottom: 16px;
-      right: 16px;
-      border-bottom: 2px solid;
-      border-right: 2px solid;
-      border-bottom-right-radius: 14px;
-    }
-
-    .scan-status {
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
-      z-index: 6;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(10, 17, 32, 0.5);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      font-size: 12px;
-      line-height: 1.6;
-      color: var(--muted);
-      max-width: 70%;
-    }
-
-    .scan-status strong {
-      display: block;
-      color: #edf7ff;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .loading-wrap, .result-wrap, .fail-wrap {
-      width: 100%;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 42px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .loading-box, .result-box, .fail-box {
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      backdrop-filter: blur(20px);
-      padding: 30px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    .loading-grid, .result-grid {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 26px;
-      align-items: stretch;
-    }
-
-    .loading-visual, .result-visual {
-      border-radius: 24px;
-      min-height: 430px;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(18, 30, 54, 0.92), rgba(8, 15, 29, 0.96));
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .loading-visual img, .result-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scaleX(-1);
-      opacity: 0.88;
-      filter: contrast(1.05) saturate(0.98);
-    }
-
-    .mesh {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 32%, rgba(143,230,255,0.18), transparent 18%),
-        radial-gradient(circle at 70% 32%, rgba(143,230,255,0.18), transparent 18%),
-        radial-gradient(circle at 50% 54%, rgba(110,168,255,0.18), transparent 16%),
-        radial-gradient(circle at 50% 70%, rgba(110,168,255,0.12), transparent 16%);
-      pointer-events: none;
-    }
-
-    .mesh-line {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(143,230,255,0.95), transparent);
-      box-shadow: 0 0 18px rgba(110,168,255,0.4);
-      animation: scanMove 1.8s linear infinite;
-    }
-
-    .loading-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 22px;
-      min-height: 430px;
-    }
-
-    .loading-title, .result-title, .fail-title {
-      font-size: clamp(28px, 3vw, 46px);
-      line-height: 1.06;
-      letter-spacing: -0.04em;
-      max-width: 720px;
-    }
-
-    .loading-text, .result-desc, .fail-desc {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--muted);
-    }
-
-    .progress-wrap {
-      width: 100%;
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #d8f5ff, #9cecff, #5b88ff);
-      box-shadow: 0 0 18px rgba(110,168,255,0.44);
-      transition: width 0.14s linear;
-    }
-
-    .progress-num {
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      color: rgba(238,246,255,0.62);
-    }
-
-    .data-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 24px 0;
-    }
-
-    .data-card {
-      border-radius: 18px;
-      padding: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      min-height: 112px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .data-label {
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: rgba(220, 234, 255, 0.66);
-      line-height: 1.6;
-    }
-
-    .data-value {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: #ffffff;
-    }
-
-    .data-note {
-      font-size: 12px;
-      color: rgba(220, 234, 255, 0.58);
-      line-height: 1.6;
-    }
-
-    .mode-card {
-      border-radius: 22px;
-      padding: 22px;
-      background:
-        linear-gradient(135deg, rgba(91,136,255,0.16), rgba(156,236,255,0.05));
-      border: 1px solid rgba(156,236,255,0.16);
-      margin-bottom: 16px;
-    }
-
-    .mode-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
-    .mode-name {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: #fff;
-    }
-
-    .mode-badge {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: #e3f2ff;
-    }
-
-    .mode-text {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-
-    .tag {
-      padding: 10px 13px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: #eaf6ff;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      letter-spacing: 0.03em;
-    }
-
-    .sub-panels {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 16px;
     }
 
     .sub-card {
       border-radius: 18px;
-      padding: 18px;
+      padding: 16px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.06);
     }
@@ -3714,7 +772,7 @@
     }
 
     .sub-card p {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.8;
       color: #edf5ff;
     }
@@ -3723,14 +781,27 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 24px;
+      margin-top: 20px;
+      padding-bottom: 8px;
     }
 
     @media (max-width: 1024px) {
+      .frame {
+        height: auto;
+        min-height: 92vh;
+      }
+
       .layout,
       .loading-grid,
       .result-grid {
         grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .loading-wrap,
+      .result-wrap,
+      .fail-wrap {
+        height: auto;
       }
 
       .left-panel {
@@ -3741,6 +812,17 @@
       .data-grid,
       .sub-panels {
         grid-template-columns: 1fr;
+      }
+
+      .result-info {
+        overflow: visible;
+        height: auto;
+      }
+
+      .scan-stage,
+      .loading-visual,
+      .result-visual {
+        min-height: 420px;
       }
     }
 
@@ -3811,7 +893,7 @@
             </div>
 
             <div class="small-note">
-              Use a phone or laptop browser for the best result.<br />
+              Use a phone or tablet browser for the best result.<br />
               If the camera cannot be accessed, open this page through localhost or HTTPS.
             </div>
 
@@ -3919,6 +1001,7 @@
 
       <div class="fail-wrap">
         <div class="fail-box">
+          <div class="eyebrow">Scan Failed</div>
           <h2 class="fail-title">掃描失敗<br>No face detected</h2>
           <p class="fail-desc" style="margin-top:16px;">
             請重新對準鏡頭，讓臉部位於中央掃描框內，並保持畫面明亮。<br />
@@ -3949,7 +1032,7 @@
               <img id="resultImage" alt="result face" />
             </div>
 
-            <div>
+            <div class="result-info">
               <div class="eyebrow">Analysis Complete</div>
               <h2 class="result-title">
                 你的肌膚分析已完成<br />
