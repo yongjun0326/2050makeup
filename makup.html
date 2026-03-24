@@ -1415,53 +1415,52 @@
     }
 
    <script>
-  function chooseProfile(metrics) {
-    const { hydration, toneBalance, compatibility } = metrics;
+ function chooseProfile(metrics) {
+  const { hydration, toneBalance } = metrics;
 
-    // ❶ AERO FLOW MODE（自然 / 校正）
-    if (toneBalance < 80) {
-      return {
-        mode: "Aero Flow 氣流適應模式",
-        text: "以微氣候感應為基礎的快速上妝系統，透過粒子自動定位臉部結構，在短時間內建立輕量但精準的色彩分佈。妝感會隨環境光與空氣條件即時微調，維持自然且具有呼吸感的表現。\nA rapid-response makeup system driven by micro-climate detection. Particles automatically map facial contours and adjust color distribution in real time, maintaining a breathable and adaptive appearance.",
-        tags: [
-          "環境適應 Adaptive",
-          "快速成形 Instant",
-          "輕量貼膚 Lightweight"
-        ],
-        product: "AERO BIO MIST",
-        note: "此模式適合高流動場景，建議搭配環境光校對功能，以維持妝容穩定度與色彩一致性。"
-      };
-    }
-
-    // ❷ TIDAL LUMIN MODE（水光）
-    if (hydration > 50) {
-      return {
-        mode: "Tidal Lumin 潮汐光澤模式",
-        text: "透過生物光敏機制，讓妝容從肌膚內部生成光澤與質感，而非表層覆蓋。光感會隨體溫與外部光線動態變化，使肌膚呈現持續流動的自然發光狀態。\nA bio-luminescent makeup mode that generates glow from within the skin. Light response dynamically shifts with temperature and environment, creating a fluid, living radiance.",
-        tags: [
-          "動態光澤 Dynamic Glow",
-          "深層融合 Deep Fusion",
-          "自發光 Bio-Luminous"
-        ],
-        product: "TIDAL CELL ELIXIR",
-        note: "此模式會根據環境與肌膚狀態持續調整反射率，適合長時間維持穩定且高質感的妝容表現。"
-      };
-    }
-
-    // ❸ CORE FLUX MODE（精緻 / 立體）
+  // ❶ AERO FLOW MODE
+  if (toneBalance < 80) {
     return {
-      mode: "Core Flux 核心顯色模式",
-      text: "透過內生性顯色機制，從細胞層級改變妝容表現，實現高度精準且持久的結構性妝效。妝容不再附著於表面，而是與身體系統同步運作。\nA high-level bio-integrated mode that alters appearance at a cellular level, producing long-lasting and structurally precise makeup that operates in sync with the body.",
+      mode: "Aero Flow 氣流適應模式",
+      text: "以微氣候感應為基礎的快速上妝系統，透過粒子自動定位臉部結構，在短時間內建立輕量但精準的色彩分佈。妝感會隨環境光與空氣條件即時微調，維持自然且具有呼吸感的表現。\nA rapid-response makeup system driven by micro-climate detection. Particles automatically map facial contours and adjust color distribution in real time.",
       tags: [
-        "內生轉換 Internal Shift",
-        "高強持久 Long Duration",
-        "結構強化 Structural"
+        "環境適應 Adaptive",
+        "快速成形 Instant",
+        "輕量貼膚 Lightweight"
       ],
-      product: "CORE-FLUX CAPSULE",
-      note: "此模式將妝容納入生理節律系統，建議搭配生命徵象設定，以獲得最佳動態表現。"
+      product: "AERO BIO MIST",
+      note: "適合高流動場景，維持妝容穩定與色彩一致。"
     };
   }
 
+  // ❷ TIDAL LUMIN MODE
+  if (hydration > 50) {
+    return {
+      mode: "Tidal Lumin 潮汐光澤模式",
+      text: "透過生物光敏機制讓妝容從肌膚內部生成光澤，隨環境與溫度變化呈現自然發光狀態。\nA bio-luminescent mode generating glow from within the skin.",
+      tags: [
+        "動態光澤 Dynamic Glow",
+        "深層融合 Deep Fusion",
+        "自發光 Bio-Luminous"
+      ],
+      product: "TIDAL CELL ELIXIR",
+      note: "適合長時間維持高質感妝效。"
+    };
+  }
+
+  // ❸ CORE FLUX MODE
+  return {
+    mode: "Core Flux 核心顯色模式",
+    text: "透過內生顯色機制從細胞層級改變妝容表現，達到高精準且持久的立體妝效。\nA bio-integrated mode altering appearance at a cellular level.",
+    tags: [
+      "內生轉換 Internal Shift",
+      "高強持久 Long Duration",
+      "結構強化 Structural"
+    ],
+    product: "CORE-FLUX CAPSULE",
+    note: "適合高強度與長時間場景。"
+  };
+}
   function generateResult() {
     console.log("generateResult started");
 
